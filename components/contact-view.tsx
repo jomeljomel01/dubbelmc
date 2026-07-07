@@ -140,6 +140,7 @@ export function ContactView() {
                   <input id="phone" type="tel" placeholder="+63 (912) 345-6789" className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 rounded-xl p-3 text-sm transition-all focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 placeholder:text-zinc-400" />
                 </div>
 
+
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-zinc-700 mb-1.5">Subject</label>
                   <select id="subject" required className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 rounded-xl p-3 text-sm transition-all focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600">
