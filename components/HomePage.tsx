@@ -1,19 +1,51 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { VisionMissionSection, OurGoalsSection, OurValuesSection } from '@/components/sections';
-import ContactView from '@/components/contact-view';
+import { ContactView } from '@/components/contact-view';
 import DivisionsView from '@/components/divisions-view';
 
+type ViewType = 'home' | 'divisions' | 'contact';
+
+const NAV_ITEMS: { view: ViewType; label: string }[] = [
+  { view: 'home', label: 'Home' },
+  { view: 'divisions', label: 'Divisions' },
+  { view: 'contact', label: 'Contact Us' },
+];
+
 export default function HomePage() {
-  const [currentView, setCurrentView] = useState<'home' | 'divisions' | 'contact'>('home');
+  const [currentView, setCurrentView] = useState<ViewType>('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const navigateTo = (view: 'home' | 'divisions' | 'contact') => {
+  const navigateTo = useCallback((view: ViewType) => {
     setCurrentView(view);
     setIsMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [currentView]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <div className="min-h-screen bg-white text-zinc-800 antialiased font-sans">
@@ -26,9 +58,14 @@ export default function HomePage() {
             onClick={() => navigateTo('home')} 
             className="flex items-center space-x-3 focus:outline-hidden text-left"
           >
-            <div className="bg-[#1a4636] text-white font-bold px-2 py-1 rounded-sm text-xs tracking-wider">
-              DMC
-            </div>
+            <Image
+              src="/dmclogo.jpg"
+              alt="DMC Logo"
+              width={32}
+              height={32}
+              className="h-8 w-auto"
+              priority
+            />
             <span className="font-serif font-bold text-lg text-zinc-900 tracking-tight">
               Dubbel Medical Corporation
             </span>
@@ -36,38 +73,35 @@ export default function HomePage() {
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
-            <button 
-              onClick={() => navigateTo('home')} 
-              className={`transition-colors ${currentView === 'home' ? 'text-[#1a4636] font-bold' : 'text-zinc-600 hover:text-zinc-900'}`}
-            >
-              Home
-            </button>
-            <button 
-              onClick={() => navigateTo('divisions')} 
-              className={`transition-colors ${currentView === 'divisions' ? 'text-[#1a4636] font-bold' : 'text-zinc-600 hover:text-zinc-900'}`}
-            >
-              Divisions
-            </button>
-            <button 
-              onClick={() => navigateTo('contact')} 
-              className={`transition-colors ${currentView === 'contact' ? 'text-[#1a4636] font-bold' : 'text-zinc-600 hover:text-zinc-900'}`}
-            >
-              Contact Us
-            </button>
+            {NAV_ITEMS.map(({ view, label }) => (
+              <button
+                key={view}
+                onClick={() => navigateTo(view)}
+                className={`transition-colors ${
+                  currentView === view ? 'text-[#1a4636] font-bold' : 'text-zinc-600 hover:text-zinc-900'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
           </nav>
 
           {/* Mobile Menu Toggle */}
           <div className="flex items-center md:hidden">
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-zinc-500 hover:text-zinc-900 focus:outline-hidden"
+              type="button"
+              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+              className="p-2 text-zinc-500 hover:text-zinc-900 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#1a4636]"
             >
               {isMobileMenuOpen ? (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                <svg aria-hidden="true" className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                <svg aria-hidden="true" className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
               )}
@@ -77,25 +111,21 @@ export default function HomePage() {
 
         {/* Mobile Dropdown Panel */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-b border-zinc-100 bg-white px-4 py-3 space-y-2 shadow-md">
-            <button
-              onClick={() => navigateTo('home')}
-              className={`block w-full text-left py-2 text-base ${currentView === 'home' ? 'text-[#1a4636] font-bold' : 'text-zinc-600'}`}
-            >
-              Home
-            </button>
-            <button
-              onClick={() => navigateTo('divisions')}
-              className={`block w-full text-left py-2 text-base ${currentView === 'divisions' ? 'text-[#1a4636] font-bold' : 'text-zinc-600'}`}
-            >
-              Divisions
-            </button>
-            <button
-              onClick={() => navigateTo('contact')}
-              className={`block w-full text-left py-2 text-base ${currentView === 'contact' ? 'text-[#1a4636] font-bold' : 'text-zinc-600'}`}
-            >
-              Contact Us
-            </button>
+          <div
+            id="mobile-menu"
+            className="md:hidden border-b border-zinc-100 bg-white px-4 py-3 space-y-2 shadow-md"
+          >
+            {NAV_ITEMS.map(({ view, label }) => (
+              <button
+                key={view}
+                onClick={() => navigateTo(view)}
+                className={`block w-full text-left py-2 text-base ${
+                  currentView === view ? 'text-[#1a4636] font-bold' : 'text-zinc-600'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
           </div>
         )}
       </header>
@@ -108,31 +138,31 @@ export default function HomePage() {
             <section className="relative min-h-[580px] md:min-h-[640px] flex items-center overflow-hidden">
               {/* Surgical Room Background Image */}
               <div 
-                className="absolute inset-0 bg-cover bg-center mix-blend-multiply opacity-80"
+                className="absolute inset-0 bg-cover bg-center"
                 style={{ backgroundImage: `url('/hero-medical.jpg')` }}
               />
               
-              {/* Green Tint Overlay to match the design tone */}
-              <div className="absolute inset-0 bg-[#1a4636]/60 mix-blend-color" />
+              {/* Light green background with subtle tint */}
+              <div className="absolute inset-0 bg-emerald-50/80" />
 
               <div className="relative max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-20 z-10">
                 <div className="max-w-2xl">
-                  <h1 className="text-4xl font-serif font-bold tracking-tight text-white sm:text-5xl md:text-6xl leading-[1.15]">
-                    Advanced Medical &<br />Surgical Devices
-                  </h1>
-                  <p className="mt-6 text-sm sm:text-base text-zinc-100/90 max-w-xl font-normal leading-relaxed">
+                <h1 className="text-4xl font-serif font-bold tracking-tight text-zinc-900 sm:text-5xl md:text-6xl leading-[1.15]">
+                  Advanced Medical &<br />Surgical Devices
+                </h1>
+                <p className="mt-6 text-sm sm:text-base text-zinc-700 max-w-xl font-normal leading-relaxed">
                     DUBBEL MEDICAL CORPORATION (DMC) is a duly registered corporation in the Philippines, committed to be the country&apos;s most trusted supplier of advanced medical and surgical devices.
                   </p>
                   <div className="mt-8 flex flex-wrap gap-4">
                     <button 
                       onClick={() => navigateTo('divisions')} 
-                      className="rounded-lg bg-white px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[#1a4636] shadow-sm hover:bg-zinc-100 transition-colors cursor-pointer"
+                      className="rounded-lg bg-[#1a4636] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-sm hover:bg-[#0d3320] transition-colors"
                     >
-                      Explore Our Divisions
+                      Explore Our Active Supply
                     </button>
                     <button 
                       onClick={() => navigateTo('contact')} 
-                      className="rounded-lg border-2 border-white px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white bg-transparent hover:bg-white/10 transition-colors cursor-pointer"
+                      className="rounded-lg border-2 border-[#1a4636] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[#1a4636] bg-transparent hover:bg-[#1a4636]/10 transition-colors"
                     >
                       Contact Us
                     </button>
