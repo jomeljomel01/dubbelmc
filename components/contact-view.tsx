@@ -122,17 +122,17 @@ export function ContactView() {
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
                     <label htmlFor="firstName" className="block text-sm font-medium text-zinc-700 mb-1.5">First Name</label>
-                    <input id="firstName" required type="text" placeholder="John" className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 rounded-xl p-3 text-sm transition-all focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 placeholder:text-zinc-400" />
+                    <input id="firstName" required type="text" placeholder="FirstName" className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 rounded-xl p-3 text-sm transition-all focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 placeholder:text-zinc-400" />
                   </div>
                   <div>
                     <label htmlFor="lastName" className="block text-sm font-medium text-zinc-700 mb-1.5">Last Name</label>
-                    <input id="lastName" required type="text" placeholder="Doe" className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 rounded-xl p-3 text-sm transition-all focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 placeholder:text-zinc-400" />
+                    <input id="lastName" required type="text" placeholder="LastName" className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 rounded-xl p-3 text-sm transition-all focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 placeholder:text-zinc-400" />
                   </div>
                 </div>
 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-zinc-700 mb-1.5">Email Address</label>
-                  <input id="email" required type="email" placeholder="john@example.com" className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 rounded-xl p-3 text-sm transition-all focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 placeholder:text-zinc-400" />
+                  <input id="email" required type="email" placeholder="example@gmail.com" className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 rounded-xl p-3 text-sm transition-all focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 placeholder:text-zinc-400" />
                 </div>
 
                 <div>

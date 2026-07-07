@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { VisionMissionSection, OurGoalsSection, OurValuesSection } from '@/components/sections';
 import { ContactView } from '@/components/contact-view';
+
 
 
 
@@ -25,6 +27,7 @@ export default function HomePage() {
               Dubbel Medical Corporation
             </span>
           </button>
+          
           
           <nav className="flex items-center space-x-8 text-sm font-medium">
             <button type="button"
@@ -52,11 +55,15 @@ export default function HomePage() {
           <>
             {/* HERO HERO SECTION */}
             <section className="relative min-h-[520px] flex items-center bg-emerald-900 overflow-hidden">
-              <div 
-                className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-luminosity"
-                style={{ backgroundImage: `url('/images/hero.jpg')` }}
+              {/* Green-tinted background image */}
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url('/hero-medical.jpg')` }}
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#114227]/90 via-emerald-900/85 to-teal-800/70 mix-blend-multiply" />
+              {/* Green overlay for consistent green look */}
+              <div className="absolute inset-0 bg-emerald-900/50" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#114227]/70 via-emerald-900/70 to-teal-800/60 mix-blend-multiply" />
+
 
               <div className="relative max-w-7xl mx-auto w-full px-6 py-20 z-10">
                 <div className="max-w-3xl">
