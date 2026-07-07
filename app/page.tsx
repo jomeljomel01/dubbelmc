@@ -3,13 +3,14 @@
 import React, { useState } from 'react';
 import { VisionMissionSection, OurGoalsSection, OurValuesSection } from '@/components/sections';
 import { ContactView } from '@/components/contact-view';
-import DivisionsView from '@/components/divisions-view';
+
 
 
 
 
 export default function HomePage() {
-  const [currentView, setCurrentView] = useState<'home' | 'divisions' | 'contact'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'contact'>('home');
+
 
   return (
     <div className="min-h-screen bg-white text-zinc-900">
@@ -33,13 +34,7 @@ export default function HomePage() {
             >
               Home
             </button>
-            <button type="button"
-              onClick={() => setCurrentView('divisions')} 
 
-              className={`transition-colors py-1 ${currentView === 'divisions' ? 'text-[#114227] font-semibold border-b-2 border-[#114227]' : 'text-zinc-600 hover:text-zinc-900'}`}
-            >
-              Divisions
-            </button>
             <button type="button"
               onClick={() => setCurrentView('contact')} 
 
@@ -72,9 +67,7 @@ export default function HomePage() {
 DUBBEL MEDICAL CORPORATION (DMC) is a duly registered corporation in the Philippines, committed to be the country&apos;s most trusted supplier of advanced medical and surgical devices.
                   </p>
                   <div className="mt-10 flex flex-wrap gap-4">
-                    <button type="button" onClick={() => setCurrentView('divisions')} className="rounded-md bg-white px-6 py-3 text-sm font-semibold text-[#114227] shadow-xs hover:bg-zinc-100 transition-all">
-                      Explore Our Divisions
-                    </button>
+
                     <button type="button" onClick={() => setCurrentView('contact')} className="rounded-md border-2 border-white px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-all">
                       Contact Us
                     </button>
@@ -97,11 +90,12 @@ DUBBEL MEDICAL CORPORATION (DMC) is a duly registered corporation in the Philipp
             {/* INTERACTIVE SCROLL SECTIONS */}
             <VisionMissionSection />
             <OurGoalsSection />
-            <OurValuesSection onViewDivisions={() => setCurrentView('divisions')} />
+            <OurValuesSection />
+
           </>
         )}
 
-        {currentView === 'divisions' && <DivisionsView />}
+
         {currentView === 'contact' && <ContactView />}
 
       </main>

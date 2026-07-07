@@ -4,13 +4,15 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { VisionMissionSection, OurGoalsSection, OurValuesSection } from '@/components/sections';
 import { ContactView } from '@/components/contact-view';
-import DivisionsView from '@/components/divisions-view';
 
-type ViewType = 'home' | 'divisions' | 'contact';
+
+type ViewType = 'home' | 'contact';
+
+
 
 const NAV_ITEMS: { view: ViewType; label: string }[] = [
   { view: 'home', label: 'Home' },
-  { view: 'divisions', label: 'Divisions' },
+
   { view: 'contact', label: 'Contact Us' },
 ];
 
@@ -138,7 +140,7 @@ export default function HomePage() {
             <section className="relative min-h-[580px] md:min-h-[640px] flex items-center overflow-hidden">
               {/* Surgical Room Background Image */}
               <div 
-                className="absolute inset-0 bg-cover bg-center"
+                className="inset-0 bg-cover bg-center"
                 style={{ backgroundImage: `url('/hero-medical.jpg')` }}
               />
               
@@ -155,13 +157,8 @@ export default function HomePage() {
                   </p>
                   <div className="mt-8 flex flex-wrap gap-4">
                     <button 
-                      onClick={() => navigateTo('divisions')} 
-                      className="rounded-lg bg-[#1a4636] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-sm hover:bg-[#0d3320] transition-colors"
-                    >
-                      Explore Our Active Supply
-                    </button>
-                    <button 
                       onClick={() => navigateTo('contact')} 
+
                       className="rounded-lg border-2 border-[#1a4636] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[#1a4636] bg-transparent hover:bg-[#1a4636]/10 transition-colors"
                     >
                       Contact Us
@@ -188,16 +185,17 @@ export default function HomePage() {
             <div className="space-y-4 bg-zinc-50/50 py-4">
               <VisionMissionSection />
               <OurGoalsSection />
-              <OurValuesSection onViewDivisions={() => navigateTo('divisions')} />
+              <OurValuesSection />
+
             </div>
           </>
         )}
 
         {/* --- ROUTED VIEWS --- */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          {currentView === 'divisions' && <DivisionsView />}
           {currentView === 'contact' && <ContactView />}
         </div>
+
       </main>
     </div>
   );
