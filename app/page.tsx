@@ -1,15 +1,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { VisionMissionSection, OurGoalsSection, OurValuesSection } from '@/components/sections';
 import { ContactView } from '@/components/contact-view';
-import { DivisionButton } from '@/components/DivisionButton';
 
 export default function HomePage() {
   const [currentView, setCurrentView] = useState<'home' | 'products' | 'contact'>('home');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDivision, setSelectedDivision] = useState<string | null>(null);
 
   // Smoothly trigger modal entrance animation
   useEffect(() => {
@@ -46,7 +43,7 @@ export default function HomePage() {
               onClick={() => setCurrentView('products')} 
               className={`transition-all duration-300 py-1 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-[#114227] after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100 ${currentView === 'products' ? 'text-[#114227] font-semibold after:scale-x-100 after:origin-bottom-left' : 'text-zinc-600 hover:text-zinc-900'}`}
             >
-              Product
+              Products
             </button>
 
             <button type="button"
@@ -117,7 +114,7 @@ export default function HomePage() {
         {/* CONTACT VIEW */}
         {currentView === 'contact' && <ContactView />}
 
-        {/* PRODUCTS / DIVISIONS MODAL OVERLAY */}
+        {/* PRODUCTS MODAL OVERLAY */}
         {currentView === 'products' && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-900/50 backdrop-blur-md p-4 pt-20 transition-all duration-300">
             <div className="bg-white rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.3)] w-full max-w-[800px] p-10 relative border border-zinc-100 transform transition-all duration-500 scale-100 opacity-100 translate-y-0">
@@ -134,38 +131,23 @@ export default function HomePage() {
               </button>
 
               <h2 className="text-4xl font-serif font-bold text-center text-zinc-900 mb-12 mt-2 tracking-tight">
-                Choose Division
+                Choose Product
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 max-w-3xl mx-auto">
                 {/* Left Column */}
                 <div className="flex flex-col gap-5">
-                  {/* Elliquence Logo */}
-                  <DivisionButton
-                    src="/download (6).jpg"
-                    alt="Elliquence"
-                    shadowColor="blue"
-                    borderColor="blue"
-                    onClick={() => setSelectedDivision('elliquence')}
-                  />
+                  <button className="w-full h-[72px] rounded-full bg-gradient-to-r from-blue-900 to-blue-800 text-white font-medium text-lg tracking-wide shadow-md hover:shadow-xl hover:shadow-blue-900/20 hover:-translate-y-1 transition-all duration-300">
+                    Elliquence
+                  </button>
 
-                  {/* Nouvag Logo */}
-                  <DivisionButton
-                    src="/download (5).jpg"
-                    alt="Nouvag"
-                    shadowColor="#1a1b41"
-                    borderColor="#1a1b41"
-                    onClick={() => setSelectedDivision('nouvag')}
-                  />
+                  <button className="w-full h-[72px] rounded-full bg-gradient-to-r from-slate-900 to-slate-800 text-white font-medium text-lg tracking-wide shadow-md hover:shadow-xl hover:shadow-slate-900/20 hover:-translate-y-1 transition-all duration-300">
+                    Nouvag
+                  </button>
 
-                  {/* 99 Logo */}
-                  <DivisionButton
-                    src="/download (7).jpg"
-                    alt="99"
-                    shadowColor="teal"
-                    borderColor="teal"
-                    onClick={() => setSelectedDivision('99')}
-                  />
+                  <button className="w-full h-[72px] rounded-full bg-gradient-to-r from-teal-900 to-teal-800 text-white font-medium text-lg tracking-wide shadow-md hover:shadow-xl hover:shadow-teal-900/20 hover:-translate-y-1 transition-all duration-300">
+                    99
+                  </button>
 
                   {/* Empty Pillars - Left */}
                   <div className="w-full h-[72px] rounded-full bg-gradient-to-r from-[#1c0d0d] to-zinc-800 cursor-pointer shadow-md hover:shadow-xl hover:shadow-zinc-900/20 hover:-translate-y-1 hover:from-black hover:to-zinc-900 transition-all duration-300"></div>
@@ -181,45 +163,6 @@ export default function HomePage() {
                   <div className="w-full h-[72px] rounded-full bg-gradient-to-r from-[#1c0d0d] to-zinc-800 cursor-pointer shadow-md hover:shadow-xl hover:shadow-zinc-900/20 hover:-translate-y-1 hover:from-black hover:to-zinc-900 transition-all duration-300"></div>
                   <div className="w-full h-[72px] rounded-full bg-gradient-to-r from-[#1c0d0d] to-zinc-800 cursor-pointer shadow-md hover:shadow-xl hover:shadow-zinc-900/20 hover:-translate-y-1 hover:from-black hover:to-zinc-900 transition-all duration-300"></div>
                 </div>
-              </div>
-
-            </div>
-          </div>
-        )}
-
-        {/* DIVISION DETAIL MODAL */}
-        {selectedDivision && (
-          <div className="fixed inset-0 z-[60] flex items-center justify-center bg-zinc-900/50 backdrop-blur-md p-4 pt-20 transition-all duration-300">
-            <div className="bg-white rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.3)] w-full max-w-[600px] p-10 relative border border-zinc-100 transform transition-all duration-500 scale-100 opacity-100 translate-y-0">
-              
-              {/* Close Button */}
-              <button 
-                onClick={() => setSelectedDivision(null)}
-                className="absolute top-6 right-6 text-zinc-400 hover:text-red-500 hover:rotate-90 hover:bg-red-50 p-2 rounded-full transition-all duration-300"
-                aria-label="Close"
-              >
-                <svg className="w-7 h-7 font-light" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-
-              <h2 className="text-3xl font-serif font-bold text-center text-zinc-900 mb-8 mt-2 tracking-tight capitalize">
-                {selectedDivision} Division
-              </h2>
-
-              <div className="text-center">
-                <p className="text-zinc-600 leading-relaxed">
-                  {selectedDivision === '99' && '99 Division specializes in advanced medical devices and surgical instruments. Committed to delivering high-quality healthcare solutions.'}
-                  {selectedDivision === 'elliquence' && 'Elliquence Division focuses on innovative spinal surgery solutions and advanced medical technology.'}
-                  {selectedDivision === 'nouvag' && 'Nouvag Division provides precision surgical equipment and neurosurgery instruments for modern healthcare.'}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setCurrentView('contact')}
-                  className="mt-8 bg-[#114227] hover:bg-emerald-900 text-white font-medium text-sm py-3.5 px-8 rounded-full transition-all duration-300 shadow-sm hover:shadow-lg"
-                >
-                  Inquire About {selectedDivision === '99' ? '99' : selectedDivision.charAt(0).toUpperCase() + selectedDivision.slice(1)}
-                </button>
               </div>
 
             </div>

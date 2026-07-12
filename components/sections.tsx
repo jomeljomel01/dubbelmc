@@ -62,10 +62,10 @@ function OurGoalsSection({ className = '' }: SectionProps) {
 }
 
 interface OurValuesSectionProps extends SectionProps {
-  onViewDivisions?: () => void;
+  onViewProducts?: () => void;
 }
 
-function OurValuesSection({ className = '', onViewDivisions }: OurValuesSectionProps) {
+function OurValuesSection({ className = '', onViewProducts }: OurValuesSectionProps) {
   const values = [
     { Icon: ShieldCheck, label: 'Integrity', text: 'We uphold the highest ethical standards in all our partnerships and operations.' },
     { Icon: HeartHandshake, label: 'Compassion', text: 'We care deeply about the wellbeing of the communities we serve.' },
@@ -87,14 +87,14 @@ function OurValuesSection({ className = '', onViewDivisions }: OurValuesSectionP
             </div>
           ))}
         </div>
-        {onViewDivisions && (
+        {onViewProducts && (
           <div className="mt-10">
             <button
               type="button"
-              onClick={onViewDivisions}
+              onClick={onViewProducts}
               className="rounded-md bg-[#114227] px-6 py-3 text-sm font-semibold text-white hover:bg-[#0d3320] transition-all focus:outline-none focus:ring-2 focus:ring-[#114227] focus:ring-offset-2"
             >
-              Explore Our Divisions
+              Explore Our Products
             </button>
           </div>
         )}
