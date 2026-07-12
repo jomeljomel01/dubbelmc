@@ -11,7 +11,7 @@ export function ContactView() {
         {/* Header Section */}
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-zinc-900 mb-4 tracking-tight">
-            Get in Touch
+            Reach Out to Us
           </h1>
           <p className="text-zinc-500 text-base md:text-lg leading-relaxed">
             Reach out to Dubbel Medical Corporation for product inquiries, training programs, and technical assistance.
